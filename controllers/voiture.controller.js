@@ -2,11 +2,21 @@ const { StatusCodes } = require("http-status-codes");
 const { Voiture } = require("../models");
 
 const ajoutVoiture = (req, res) => {
-  const { marque, modele, immatricultion, couleur } = req.body;
+  const { marque, modele, immatriculation, couleur } = req.body;
+  console.log(marque);
+  console.log(modele);
+  console.log(immatriculation);
+  console.log(couleur);
+  
+  if (!marque || !modele || !immatriculation || !couleur) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ message: "Tous les champs sont requis " });
+  }
   const voiture = Voiture.create({
     marque,
     modele,
-    immatricultion,
+    immatriculation,
     couleur,
   })
     .then((voiture) => {
@@ -27,4 +37,4 @@ const ajoutVoiture = (req, res) => {
     });
 };
 
-module.exports = {ajoutVoiture} 
+module.exports = { ajoutVoiture };

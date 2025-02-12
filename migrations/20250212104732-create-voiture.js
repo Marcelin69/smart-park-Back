@@ -16,7 +16,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       immatriculation: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
+
       },
       couleur: {
         type: Sequelize.STRING
