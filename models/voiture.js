@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     marque: DataTypes.STRING,
     modele: DataTypes.STRING,
     immatriculation: DataTypes.STRING,
-    couleur: DataTypes.STRING
+    couleur: DataTypes.STRING,
+    duree:DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Voiture',

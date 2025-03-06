@@ -18,7 +18,9 @@ module.exports = {
       immatriculation: {
         type: Sequelize.STRING,
         unique: true
-
+      },
+      duree:{
+        type: Sequelize.DATE
       },
       couleur: {
         type: Sequelize.STRING
