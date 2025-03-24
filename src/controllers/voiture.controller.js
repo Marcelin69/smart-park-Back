@@ -5,7 +5,7 @@ const { where } = require("sequelize");
 const ajoutVoiture = (req, res) => {
   console.log("Current environment:", process.env.NODE_ENV || "not defined");
 
-  const { marque, modele, immatriculation, couleur } = req.body;
+  const { marque, modele, immatriculation, couleur, duree } = req.body;
 
   if (!marque || !modele || !immatriculation || !couleur) {
     return res
@@ -23,6 +23,7 @@ const ajoutVoiture = (req, res) => {
         modele,
         immatriculation,
         couleur,
+        duree,
       })
         .then((voiture) => {
           res.json({
@@ -40,6 +41,13 @@ const ajoutVoiture = (req, res) => {
             error: err.message, // Renvoie l'erreur exacte pour debug
           });
         });
+    }else{
+      res.json({
+        code: StatusCodes.BAD_REQUEST,
+        message: "Voiture existe déjà",
+        data: null,
+        error: "Voiture existe déjà",
+      });
     }
   });
 };
@@ -105,39 +113,34 @@ const getAllVoiture = async (req, res) => {
     });
 };
 const getVoitureByMatricul = async (req, res) => {
-  await Voiture.findOne({
-    where: {
-      immatriculation: req.query.immatriculation,
-    }
-  })
-    .then(async (voitureFund) => {
-      if (voitureFund) {
-        res.json({
-          code: StatusCodes.OK,
-          message: "la Voiture est disponible",
-          data: voitureFund,
-          error: null,
-        });
-      }else{
-        res.json({
-          code: StatusCodes.NOT_FOUND,
-          message: "la voiture n'est pas disponible",
-          data: null,
-          error: "la voiture n'est pas disponible",
-          });
-      }
-    })
-    .catch((err) => {
-      res.json({
-        code: StatusCodes.INTERNAL_SERVER_ERROR,
-        message: "Erreur lors de la recupération de la voiture",
-        data: err.message,
-        error: "Erreur lors de la recupération de la voiture",
-      });
+  try {
+    var voitureFund = await Voiture.findOne({
+      where: {
+        immatriculation: req.query.immatriculation,
+      },
     });
+    if (!voitureFund) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        code: StatusCodes.NOT_FOUND,
+        message: "Voiture non trouvé",
+        data: null,
+        error: "Voiture non trouvé",
+      });
+    }
+    return res.status(StatusCodes.OK).json({
+      code: StatusCodes.OK,
+      message: "Voiture disponible avec succès",
+      data: voitureFund,
+      error: null,
+    });
+  } catch (error) {
+    return res.json({
+      code: StatusCodes.INTERNAL_SERVER_ERROR,
+    })
+  }
 };
 const deleteVoiture = async (req, res) => {
-  const id = req.params.id;
+  const id = req.query.id;
   await Voiture.destroy({
     where: {
       id: id,
@@ -161,4 +164,10 @@ const deleteVoiture = async (req, res) => {
     });
 };
 
-module.exports = { ajoutVoiture, modifierVoiture, getAllVoiture,deleteVoiture,getVoitureByMatricul };
+module.exports = {
+  ajoutVoiture,
+  modifierVoiture,
+  getAllVoiture,
+  deleteVoiture,
+  getVoitureByMatricul,
+};
