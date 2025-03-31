@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors")
 const voitureRoute = require("./src/routes/voiture.routes");
+const reservationRoute = require("./src/routes/reservation.routes");
+const authRoute = require("./src/routes/auth.routes");
 require("dotenv").config();
 
 
@@ -11,6 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/api/voiture",voitureRoute)
+app.use("/api/reservation",reservationRoute)
+app.use("/api/auth",authRoute)
 
 
 

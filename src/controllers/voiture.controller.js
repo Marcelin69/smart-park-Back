@@ -41,7 +41,7 @@ const ajoutVoiture = (req, res) => {
             error: err.message, // Renvoie l'erreur exacte pour debug
           });
         });
-    }else{
+    } else {
       res.json({
         code: StatusCodes.BAD_REQUEST,
         message: "Voiture existe déjà",
@@ -53,7 +53,6 @@ const ajoutVoiture = (req, res) => {
 };
 const modifierVoiture = async (req, res) => {
   const { immatriculation, ...updatedFields } = req.body;
-  console.log(immatriculation);
 
   await Voiture.findOne({
     where: {
@@ -136,7 +135,7 @@ const getVoitureByMatricul = async (req, res) => {
   } catch (error) {
     return res.json({
       code: StatusCodes.INTERNAL_SERVER_ERROR,
-    })
+    });
   }
 };
 const deleteVoiture = async (req, res) => {
