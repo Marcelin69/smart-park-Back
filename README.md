@@ -12,14 +12,14 @@ Ce guide vous explique comment cloner, installer et démarrer un projet Node.js 
 ### 1. Cloner le Dépôt
 - **Commande** :
   ```bash
-  git clone https://github.com/
+  [git clone https://github.com/](https://github.com/Marcelin69/smart-park-Back.git)
   ```
 - **Description** : Remplacez l'URL par celle de votre dépôt Git. Cette commande téléchargera une copie locale du projet sur votre machine.
 
 ### 2. Accéder au Répertoire du Projet
 - **Commande** :
   ```bash
-  cd votre-depot
+  cd smart-park-Back
   ```
 - **Description** : Naviguez dans le répertoire du projet que vous venez de cloner.
 
