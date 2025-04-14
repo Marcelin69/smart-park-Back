@@ -12,7 +12,7 @@ Ce guide vous explique comment cloner, installer et démarrer un projet Node.js 
 ### 1. Cloner le Dépôt
 - **Commande** :
   ```bash
-  git clone https://github.com/votre-utilisateur/votre-depot.git
+  git clone https://github.com/
   ```
 - **Description** : Remplacez l'URL par celle de votre dépôt Git. Cette commande téléchargera une copie locale du projet sur votre machine.
 
@@ -34,21 +34,24 @@ Ce guide vous explique comment cloner, installer et démarrer un projet Node.js 
 - **Description** : Si le projet utilise des variables d'environnement, créez un fichier `.env` à la racine du projet et définissez les variables nécessaires.
 - **Exemple de `.env`** :
   ```
-  PORT=3000
-  DATABASE_URL=mongodb://localhost:27017/votre-base
+  port="3001"
+  host="0.0.0.0"
+  baseUrl='http://0.0.0.0:3001'
+  SECRETE_KET='123456789marcelino'
+  NODE_ENV=test
   ```
 
 ### 5. Démarrer le Serveur
 - **Commande** :
   ```bash
-  npm start
+  nodemon index.js
   ```
 - **Description** : Démarre le serveur Node.js. Assurez-vous que le script `start` est défini dans le fichier `package.json`.
 
 ### 6. Exécuter les Tests
 - **Commande** :
   ```bash
-  npm test
+  npx jest --runInBand
   ```
 - **Description** : Exécute les tests unitaires pour vérifier que tout fonctionne correctement. Assurez-vous que le script `test` est défini dans le fichier `package.json`.
 
